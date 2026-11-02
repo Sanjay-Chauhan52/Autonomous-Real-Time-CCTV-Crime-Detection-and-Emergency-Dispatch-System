@@ -1,0 +1,32 @@
+# .gitignore — CrimeWatch
+.env                    # NEVER commit secrets
+__pycache__/
+*.py[cod]
+*.pth
+*.pt
+*.onnx
+*.safetensors
+*.bin
+models/
+outputs/checkpoints/
+outputs/logs/
+outputs/clips/
+outputs/snapshots/
+outputs/uploads/
+outputs/*.db
+outputs/~$*
+data_prep/raw/
+data_prep/raw_videos/
+data_prep/processed/
+*.mp4
+*.avi
+*.mov
+*.mkv
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.DS_Store
+Thumbs.db
+~$*

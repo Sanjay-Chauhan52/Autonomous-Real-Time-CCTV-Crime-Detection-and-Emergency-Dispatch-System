@@ -1,0 +1,24 @@
+{
+  "model": "VideoMAE-Base (Vision Transformer)",
+  "overall_accuracy": 71.43,
+  "total_test_videos": 70,
+  "videos_per_class": 10,
+  "classes": [
+    "Assault",
+    "Burglary",
+    "Fighting",
+    "Normal",
+    "Robbery",
+    "Shooting",
+    "Shoplifting"
+  ],
+  "per_class_recall": {
+    "Assault": "70.0%",
+    "Burglary": "70.0%",
+    "Fighting": "80.0%",
+    "Normal": "90.0%",
+    "Robbery": "60.0%",
+    "Shooting": "70.0%",
+    "Shoplifting": "60.0%"
+  }
+}

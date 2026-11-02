@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrimeWatch — Autonomous CCTV Anomaly Detection & Dispatch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            crimson: {
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.08); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-danger {
+      animation: pulse-ring 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 glass px-4 lg:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-rose-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+        <i data-lucide="shield-alert" class="w-6 h-6 text-white"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">CrimeWatch</span>
+          <span class="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/20">CCTV AI</span>
+        </div>
+        <p class="text-[11px] text-slate-400 font-mono">X3D-M Autonomous Surveillance Engine</p>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="hidden md:flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+      <button onclick="switchTab('live')" id="tab-btn-live" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-blue-600 text-white shadow-sm">
+        <i data-lucide="video" class="w-4 h-4"></i> Live Monitor
+      </button>
+      <button onclick="switchTab('upload')" id="tab-btn-upload" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i data-lucide="upload-cloud" class="w-4 h-4"></i> Upload & Analyze
+      </button>
+      <button onclick="switchTab('alerts')" id="tab-btn-alerts" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60 relative">
+        <i data-lucide="bell" class="w-4 h-4"></i> Incident Alerts
+        <span id="navAlertBadge" class="hidden w-2 h-2 rounded-full bg-rose-500 absolute top-1.5 right-1.5 animate-ping"></span>
+      </button>
+      <button onclick="switchTab('recipients')" id="tab-btn-recipients" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i data-lucide="users" class="w-4 h-4"></i> Dispatch & Settings
+      </button>
+      <button onclick="switchTab('dashboard')" id="tab-btn-dashboard" class="nav-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics
+      </button>
+    </nav>
+
+    <!-- System Status Indicator -->
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="gpuStatusText" class="font-mono text-slate-300">GPU: Checking...</span>
+      </div>
+      <button onclick="openTestAlertModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 flex items-center gap-1.5 transition">
+        <i data-lucide="send" class="w-3.5 h-3.5 text-blue-400"></i> Test Alert
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Tab Bar -->
+  <div class="md:hidden flex overflow-x-auto border-b border-slate-800 bg-slate-900 px-2 py-2 gap-1 text-xs">
+    <button onclick="switchTab('live')" class="mobile-tab px-3 py-1.5 rounded-lg bg-blue-600 text-white whitespace-nowrap">Live</button>
+    <button onclick="switchTab('upload')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">Upload</button>
+    <button onclick="switchTab('alerts')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">Alerts</button>
+    <button onclick="switchTab('recipients')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">Settings</button>
+    <button onclick="switchTab('dashboard')" class="mobile-tab px-3 py-1.5 rounded-lg text-slate-400 whitespace-nowrap">Analytics</button>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8">
+
+    <!-- ======================================================================= -->
+    <!-- TAB 1: LIVE MONITOR -->
+    <!-- ======================================================================= -->
+    <section id="tab-live" class="tab-pane space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="radio" class="w-6 h-6 text-rose-500 animate-pulse"></i> Real-Time CCTV Monitor
+          </h1>
+          <p class="text-sm text-slate-400">Streams live frames to X3D-M neural network with 3-window persistence filtering.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnStartLive" onclick="startLiveCamera()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+            <i data-lucide="play" class="w-4 h-4"></i> Start Camera Feed
+          </button>
+          <button id="btnStopLive" onclick="stopLiveCamera()" class="hidden px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-400 border border-slate-700 text-xs font-bold flex items-center gap-2 transition">
+            <i data-lucide="square" class="w-4 h-4"></i> Stop Feed
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Live Video Viewport -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center group">
+            <video id="liveVideo" autoplay playsinline muted class="w-full h-full object-cover hidden"></video>
+            <canvas id="liveCaptureCanvas" class="hidden" width="182" height="182"></canvas>
+            
+            <!-- Placeholder when camera is inactive -->
+            <div id="cameraPlaceholder" class="text-center p-8 space-y-3">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-500 border border-slate-700/50">
+                <i data-lucide="camera-off" class="w-8 h-8"></i>
+              </div>
+              <p class="text-slate-400 text-sm font-medium">CCTV Camera Offline</p>
+              <p class="text-xs text-slate-500 max-w-xs mx-auto">Click "Start Camera Feed" to initialize webcam frame extraction and streaming.</p>
+            </div>
+
+            <!-- Floating Top Badges -->
+            <div id="videoOverlayBadges" class="hidden absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+              <!-- Severity Badge -->
+              <div id="liveSeverityBadge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 glass border bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span id="liveSeverityText">NORMAL</span>
+              </div>
+              <!-- FPS / Model Specs -->
+              <div class="px-3 py-1 rounded-full text-xs font-mono glass border border-slate-700/60 text-slate-300">
+                <span id="liveFpsText">~6.5 FPS</span> &bull; 182x182
+              </div>
+            </div>
+
+            <!-- Floating Bottom HUD -->
+            <div id="videoOverlayHud" class="hidden absolute bottom-4 left-4 right-4 p-3 rounded-xl glass border border-slate-800 flex items-center justify-between">
+              <div>
+                <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Current Action Class</p>
+                <p id="liveClassText" class="text-lg font-extrabold text-white">Normal</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Confidence Score</p>
+                <p id="liveConfidenceText" class="text-lg font-extrabold text-emerald-400 font-mono">0.0%</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Banner (Appears on Trigger) -->
+          <div id="liveAlertBanner" class="hidden p-4 rounded-xl border border-rose-500/40 bg-rose-500/10 flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-rose-500/20 text-rose-400">
+              <i data-lucide="flame" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <h4 class="font-bold text-rose-400 text-sm">SECURITY DISPATCH DISPATCHED</h4>
+                <span id="bannerSeverityBadge" class="px-2 py-0.5 text-[10px] font-bold rounded bg-rose-500 text-white">HIGH</span>
+              </div>
+              <p id="bannerAlertReason" class="text-xs text-slate-300 mt-1">Incident alert dispatched to authorities.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Metrics & Probability Breakdown -->
+        <div class="space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+              <i data-lucide="activity" class="w-4 h-4 text-blue-400"></i> Class Probability Distribution
+            </h3>
+            <p class="text-xs text-slate-400">Live softmax posteriors over 7 monitored anomaly categories:</p>
+
+            <div id="probabilitiesList" class="space-y-3 pt-2">
+              <!-- Dynamically populated bars -->
+              <div class="text-center py-6 text-xs text-slate-500">Camera feed offline</div>
+            </div>
+          </div>
+
+          <!-- Live Session Info Card -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Active Filter Policy
+            </h3>
+            <ul class="text-xs space-y-2 text-slate-400">
+              <li class="flex justify-between"><span>Confidence Threshold:</span> <span class="font-mono text-slate-200">≥ 70%</span></li>
+              <li class="flex justify-between"><span>Temporal Persistence:</span> <span class="font-mono text-slate-200">3 Windows (24 frames)</span></li>
+              <li class="flex justify-between"><span>Alert Cooldown:</span> <span class="font-mono text-slate-200">60 seconds / class</span></li>
+              <li class="flex justify-between"><span>SMS Dispatch Policy:</span> <span class="font-mono text-rose-400 font-semibold">HIGH Severity Only</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================================= -->
+    <!-- TAB 2: UPLOAD & ANALYZE -->
+    <!-- ======================================================================= -->
+    <section id="tab-upload" class="tab-pane hidden space-y-6">
+      <div>
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="film" class="w-6 h-6 text-blue-500"></i> Forensic Video Analysis
+        </h1>
+        <p class="text-sm text-slate-400">Upload untrimmed CCTV recordings for offline temporal scan and automated incident clipping.</p>
+      </div>
+
+      <!-- Drag & Drop Upload Zone -->
+      <div id="dropZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" onclick="document.getElementById('videoFileInput').click()" class="border-2 border-dashed border-slate-800 hover:border-blue-500/60 bg-slate-900/60 hover:bg-slate-900 rounded-2xl p-8 text-center cursor-pointer transition-all space-y-3">
+        <input type="file" id="videoFileInput" accept="video/mp4,video/avi,video/mkv,video/quicktime" class="hidden" onchange="handleFileSelect(event)">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20">
+          <i data-lucide="upload" class="w-7 h-7"></i>
+        </div>
+        <p class="text-sm font-semibold text-slate-200">Drag & Drop CCTV Footage (.mp4, .avi, .mkv)</p>
+        <p class="text-xs text-slate-500">Or click to browse from file system</p>
+      </div>
+
+      <!-- Progress Card -->
+      <div id="uploadProgressCard" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between text-xs">
+          <span id="uploadFileName" class="font-mono text-slate-300 font-semibold truncate max-w-sm">video.mp4</span>
+          <span id="uploadStatusText" class="text-blue-400 font-mono">Processing...</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+          <div id="uploadProgressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 15%"></div>
+        </div>
+      </div>
+
+      <!-- Interactive Results & Timeline Viewer -->
+      <div id="analysisResultsView" class="hidden space-y-6">
+
+        <!-- Prominent Total Video Verdict Banner -->
+        <div id="overallVerdictCard" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all">
+          <!-- Dynamically populated by renderAnalysisResults -->
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Video Player with Real-Time HUD Overlay -->
+          <div class="lg:col-span-2 space-y-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden aspect-video relative">
+              <video id="analysisVideoPlayer" controls class="w-full h-full object-contain"></video>
+              <!-- Canvas HUD overlay — pointer-events:none so clicks pass through to video controls -->
+              <canvas id="crimeHudCanvas" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:10;"></canvas>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono px-1">
+              <span id="analysisVideoMeta">FPS: 30.0 &bull; Duration: 0s</span>
+              <div class="flex items-center gap-3">
+                <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="checkbox" id="hudToggle" checked onchange="toggleHud(this.checked)"
+                    class="w-3.5 h-3.5 accent-blue-500 cursor-pointer">
+                  <span class="text-blue-400 font-semibold">Live HUD Overlay</span>
+                </label>
+                <span class="text-slate-600">|</span>
+                <span class="text-slate-400">Click timestamp cards below to seek</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- High-Confidence Timestamps & Incidents -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="crosshair" class="w-4 h-4 text-rose-400"></i> High-Confidence Timestamps
+              </h3>
+              <span id="incidentCountBadge" class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">0 events</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Key moments where model confidence is elevated:</p>
+            
+            <div id="detectedEventsContainer" class="space-y-2 max-h-[460px] overflow-y-auto pr-1">
+              <!-- Dynamically populated event cards -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================================= -->
+    <!-- TAB 3: ALERTS MANAGEMENT -->
+    <!-- ======================================================================= -->
+    <section id="tab-alerts" class="tab-pane hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-6 h-6 text-amber-500"></i> Security Incidents & Dispatches
+          </h1>
+          <p class="text-sm text-slate-400">Review forensic incident logs, inspection snapshots, and store confirmation feedback.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="alertFilterStatus" onchange="fetchAlertsTable()" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300">
+            <option value="">All Statuses</option>
+            <option value="new">New Only</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="dismissed">Dismissed</option>
+          </select>
+          <button onclick="fetchAlertsTable()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 border border-slate-700 flex items-center gap-1.5">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+          </button>
+          <button onclick="clearAllAlerts()" class="px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-xs font-semibold text-rose-400 border border-rose-500/30 flex items-center gap-1.5 transition">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Alerts
+          </button>
+        </div>
+      </div>
+
+      <!-- Alerts Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950/60 border-b border-slate-800 uppercase text-[11px] font-mono text-slate-400">
+              <tr>
+                <th class="py-3 px-4">Forensic Snapshot</th>
+                <th class="py-3 px-4">Incident Class</th>
+                <th class="py-3 px-4">Confidence</th>
+                <th class="py-3 px-4">Severity</th>
+                <th class="py-3 px-4">Timestamp</th>
+                <th class="py-3 px-4">Dispatched Via</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="alertsTableBody" class="divide-y divide-slate-800 text-slate-300">
+              <tr><td colspan="8" class="text-center py-8 text-slate-500">Loading stored alerts...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================================= -->
+    <!-- TAB 4: DISPATCH RECIPIENTS & SETTINGS -->
+    <!-- ======================================================================= -->
+    <section id="tab-recipients" class="tab-pane hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="settings" class="w-6 h-6 text-blue-500"></i> Dispatch Protocols & Settings
+          </h1>
+          <p class="text-sm text-slate-400">Configure emergency notification contacts, severity filters, and inference parameters.</p>
+        </div>
+        <button onclick="openAddRecipientModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/20 transition">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Add Contact
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Recipients List -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-blue-400"></i> Emergency Dispatch Contacts
+            </h3>
+            <span class="text-xs text-slate-500 font-mono">SQLite Recipients Table</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/60 border-b border-slate-800 text-[11px] font-mono uppercase text-slate-400">
+                <tr>
+                  <th class="py-3 px-4">Recipient</th>
+                  <th class="py-3 px-4">Role</th>
+                  <th class="py-3 px-4">Channels</th>
+                  <th class="py-3 px-4">Min Severity</th>
+                  <th class="py-3 px-4 text-right">Delete</th>
+                </tr>
+              </thead>
+              <tbody id="recipientsTableBody" class="divide-y divide-slate-800 text-slate-300">
+                <tr><td colspan="5" class="text-center py-6 text-slate-500">Loading contacts...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Detection Parameters Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2">
+            <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i> Detection Sensitivities
+          </h3>
+          <p class="text-xs text-slate-400">Fine-tune confidence gate and alert suppression thresholds:</p>
+
+          <div class="space-y-4 pt-2">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Confidence Threshold</span>
+                <span id="sliderConfVal" class="font-mono text-blue-400">0.70</span>
+              </div>
+              <input type="range" id="sliderConf" min="0.50" max="0.95" step="0.05" value="0.70" oninput="document.getElementById('sliderConfVal').innerText = parseFloat(this.value).toFixed(2)" class="w-full accent-blue-600 bg-slate-800 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Persistence Windows</span>
+                <span id="sliderPersistVal" class="font-mono text-emerald-400">3 Windows</span>
+              </div>
+              <input type="range" id="sliderPersist" min="1" max="5" step="1" value="3" oninput="document.getElementById('sliderPersistVal').innerText = this.value + ' Windows'" class="w-full accent-emerald-600 bg-slate-800 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Alert Cooldown</span>
+                <span id="sliderCooldownVal" class="font-mono text-amber-400">60 seconds</span>
+              </div>
+              <input type="range" id="sliderCooldown" min="15" max="180" step="15" value="60" oninput="document.getElementById('sliderCooldownVal').innerText = this.value + ' seconds'" class="w-full accent-amber-600 bg-slate-800 rounded-lg">
+            </div>
+
+            <div class="pt-2 border-t border-slate-800">
+              <button onclick="openTestAlertModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 flex items-center justify-center gap-2 transition">
+                <i data-lucide="send" class="w-4 h-4 text-blue-400"></i> Send Diagnostic Test Alert
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================================= -->
+    <!-- TAB 5: ANALYTICS DASHBOARD -->
+    <!-- ======================================================================= -->
+    <section id="tab-dashboard" class="tab-pane hidden space-y-6">
+      <div>
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="bar-chart-2" class="w-6 h-6 text-emerald-500"></i> Threat Intelligence & System Analytics
+        </h1>
+        <p class="text-sm text-slate-400">Model telemetry, incident breakdown, and verified confusion matrix.</p>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-1">
+          <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Total Anomaly Alerts</p>
+          <p id="kpiTotalAlerts" class="text-3xl font-extrabold text-white">0</p>
+          <p class="text-[11px] text-slate-500">Cumulative database entries</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-1">
+          <p class="text-xs font-mono uppercase tracking-wider text-rose-400">HIGH Severity</p>
+          <p id="kpiHighAlerts" class="text-3xl font-extrabold text-rose-400">0</p>
+          <p class="text-[11px] text-slate-500">Fighting, Robbery, Assault, Shooting</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-1">
+          <p class="text-xs font-mono uppercase tracking-wider text-amber-400">MEDIUM Severity</p>
+          <p id="kpiMedAlerts" class="text-3xl font-extrabold text-amber-400">0</p>
+          <p class="text-[11px] text-slate-500">Burglary, Shoplifting</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-1">
+          <p class="text-xs font-mono uppercase tracking-wider text-emerald-400">Active Contacts</p>
+          <p id="kpiRecipients" class="text-3xl font-extrabold text-emerald-400">3</p>
+          <p class="text-[11px] text-slate-500">Police & Security Personnel</p>
+        </div>
+      </div>
+
+      <!-- Charts & Visual Artifacts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Incidents by Class Chart -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2">
+            <i data-lucide="pie-chart" class="w-4 h-4 text-blue-400"></i> Incidents by Crime Category
+          </h3>
+          <div class="relative h-64 flex items-center justify-center">
+            <canvas id="chartClassDistribution"></canvas>
+          </div>
+        </div>
+
+        <!-- Severity Distribution Chart -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2">
+            <i data-lucide="donut" class="w-4 h-4 text-amber-400"></i> Severity Classification Breakdown
+          </h3>
+          <div class="relative h-64 flex items-center justify-center">
+            <canvas id="chartSeverityDistribution"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verified Confusion Matrix & Model Evaluation Artifact -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-bold text-base text-white flex items-center gap-2">
+              <i data-lucide="grid" class="w-5 h-5 text-emerald-400"></i> VideoMAE Vision Transformer &bull; Confusion Matrix & Verification
+            </h3>
+            <p class="text-xs text-slate-400">Independent multi-video evaluation (70 held-out test videos, 10 per crime category).</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+            VideoMAE-Base ViT &bull; Benchmark: 70 Held-Out Videos &bull; Overall Accuracy: 71.4%
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 p-2 text-center group cursor-pointer" onclick="openImageModal('/outputs/videomae_confusion_matrix.png')">
+            <img src="/outputs/videomae_confusion_matrix.png" alt="VideoMAE Confusion Matrix" class="w-full h-auto object-contain rounded-lg group-hover:opacity-90 transition">
+            <p class="text-[10px] text-slate-400 mt-2 font-mono">Click to expand high-res VideoMAE confusion matrix</p>
+          </div>
+
+          <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 p-2 text-center group cursor-pointer" onclick="openImageModal('/outputs/videomae_training_curves.png')">
+            <img src="/outputs/videomae_training_curves.png" alt="VideoMAE Training Curves" class="w-full h-auto object-contain rounded-lg group-hover:opacity-90 transition">
+            <p class="text-[10px] text-slate-400 mt-2 font-mono">Click to expand 10-epoch training & validation dynamics</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ======================================================================= -->
+  <!-- MODALS -->
+  <!-- ======================================================================= -->
+
+  <!-- Add Recipient Modal -->
+  <div id="addRecipientModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-white text-base">Add Emergency Dispatch Contact</h3>
+        <button onclick="closeAddRecipientModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <form id="addRecipientForm" onsubmit="submitAddRecipient(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Full Name / Unit</label>
+          <input type="text" id="recipName" required placeholder="e.g. City Central Police Precinct" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Role</label>
+          <select id="recipRole" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+            <option value="police">Police / Dispatch</option>
+            <option value="invigilator">Campus Invigilator</option>
+            <option value="manager">Security Manager</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Email Address</label>
+          <input type="email" id="recipEmail" placeholder="officer@police.gov" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Phone Number (E.164 for SMS)</label>
+          <input type="tel" id="recipPhone" placeholder="+1XXXXXXXXXX" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Minimum Alert Severity</label>
+          <select id="recipMinSev" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+            <option value="HIGH">HIGH (Shooting, Robbery, Assault, Fighting)</option>
+            <option value="MEDIUM" selected>MEDIUM (Includes Burglary, Shoplifting)</option>
+            <option value="none">All Activity</option>
+          </select>
+        </div>
+
+        <div class="pt-3 flex gap-2 justify-end">
+          <button type="button" onclick="closeAddRecipientModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold">Save Contact</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Test Alert Modal -->
+  <div id="testAlertModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-white text-base flex items-center gap-2">
+          <i data-lucide="send" class="w-5 h-5 text-blue-400"></i> Send Diagnostic Test Alert
+        </h3>
+        <button onclick="closeTestAlertModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <p class="text-xs text-slate-400">Verifies SMTP (Gmail) and Twilio (SMS) credentials by dispatching a synthetic test notification.</p>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Channel to Test</label>
+          <select id="testChannel" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+            <option value="all">Both Email & SMS</option>
+            <option value="email">Email Only (SMTP)</option>
+            <option value="sms">SMS Only (Twilio)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Optional Target Email (Leave empty for .env default)</label>
+          <input type="email" id="testEmailInput" placeholder="your_email@domain.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Optional Target Phone (Leave empty for .env default)</label>
+          <input type="tel" id="testPhoneInput" placeholder="+1XXXXXXXXXX" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100">
+        </div>
+
+        <div id="testAlertFeedback" class="hidden p-3 rounded-xl text-xs font-mono"></div>
+
+        <div class="pt-3 flex gap-2 justify-end">
+          <button type="button" onclick="closeTestAlertModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">Close</button>
+          <button id="btnExecuteTestAlert" onclick="executeTestAlert()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center gap-1.5">
+            <i data-lucide="play" class="w-3.5 h-3.5"></i> Send Test
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div id="imageLightboxModal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer" onclick="closeImageModal()">
+    <img id="lightboxImg" src="" class="max-w-5xl max-h-[85vh] rounded-xl shadow-2xl border border-slate-800 object-contain">
+  </div>
+
+
+  <!-- ======================================================================= -->
+  <!-- FRONTEND LOGIC -->
+  <!-- ======================================================================= -->
+  <script>
+    const API_BASE = window.location.origin;
+    const WS_BASE = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host;
+
+    let liveStream = null;
+    let liveSocket = null;
+    let captureInterval = null;
+    let classChart = null;
+    let severityChart = null;
+
+    const ALL_CLASSES = ['Assault', 'Burglary', 'Fighting', 'Normal', 'Robbery', 'Shooting', 'Shoplifting'];
+
+    // Initialize application
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      checkSystemHealth();
+      fetchAlertsTable();
+      fetchRecipients();
+      initAnalyticsCharts();
+    });
+
+    // ── Tab Navigation ────────────────────────────────────────────────────────
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      const activePane = document.getElementById(`tab-${tabName}`);
+      if (activePane) activePane.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabName === 'alerts') fetchAlertsTable();
+      if (tabName === 'recipients') fetchRecipients();
+      if (tabName === 'dashboard') refreshAnalytics();
+      lucide.createIcons();
+    }
+
+    // ── Health Check ──────────────────────────────────────────────────────────
+    async function checkSystemHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`);
+        const data = await res.json();
+        document.getElementById('gpuStatusText').innerText = `Device: ${data.device.toUpperCase()} (Online)`;
+      } catch (e) {
+        document.getElementById('gpuStatusText').innerText = `API Offline`;
+      }
+    }
+
+    // ── Live Monitor (WebSocket + getUserMedia) ────────────────────────────────
+    async function startLiveCamera() {
+      try {
+        liveStream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 640, height: 480, frameRate: { ideal: 15 } },
+          audio: false
+        });
+        const video = document.getElementById('liveVideo');
+        video.srcObject = liveStream;
+        video.classList.remove('hidden');
+        document.getElementById('cameraPlaceholder').classList.add('hidden');
+        document.getElementById('videoOverlayBadges').classList.remove('hidden');
+        document.getElementById('videoOverlayHud').classList.remove('hidden');
+
+        document.getElementById('btnStartLive').classList.add('hidden');
+        document.getElementById('btnStopLive').classList.remove('hidden');
+
+        // Connect WebSocket
+        connectLiveWebSocket();
+      } catch (err) {
+        showToast('Camera Access Error', err.message, 'error');
+      }
+    }
+
+    function stopLiveCamera() {
+      if (captureInterval) clearInterval(captureInterval);
+      if (liveSocket) liveSocket.close();
+      if (liveStream) {
+        liveStream.getTracks().forEach(track => track.stop());
+      }
+      document.getElementById('liveVideo').classList.add('hidden');
+      document.getElementById('cameraPlaceholder').classList.remove('hidden');
+      document.getElementById('videoOverlayBadges').classList.add('hidden');
+      document.getElementById('videoOverlayHud').classList.add('hidden');
+      document.getElementById('btnStartLive').classList.remove('hidden');
+      document.getElementById('btnStopLive').classList.add('hidden');
+      document.getElementById('liveAlertBanner').classList.add('hidden');
+    }
+
+    function connectLiveWebSocket() {
+      liveSocket = new WebSocket(`${WS_BASE}/ws/live`);
+      const canvas = document.getElementById('liveCaptureCanvas');
+      const ctx = canvas.getContext('2d');
+      const video = document.getElementById('liveVideo');
+
+      liveSocket.onopen = () => {
+        // Stream frames at ~6 fps (every 160ms)
+        captureInterval = setInterval(() => {
+          if (video.readyState === video.HAVE_ENOUGH_DATA && liveSocket.readyState === WebSocket.OPEN) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob((blob) => {
+              if (blob && liveSocket.readyState === WebSocket.OPEN) {
+                liveSocket.send(blob);
+              }
+            }, 'image/jpeg', 0.85);
+          }
+        }, 160);
+      };
+
+      liveSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        updateLiveHUD(data);
+      };
+
+      liveSocket.onerror = (e) => {
+        console.error('WebSocket error:', e);
+      };
+    }
+
+    function updateLiveHUD(data) {
+      const label = data.label || 'Normal';
+      const conf = (data.confidence * 100).toFixed(1);
+      const sev = (data.severity || 'none').toUpperCase();
+
+      document.getElementById('liveClassText').innerText = label;
+      document.getElementById('liveConfidenceText').innerText = `${conf}%`;
+
+      // Update badge
+      const badge = document.getElementById('liveSeverityBadge');
+      const text = document.getElementById('liveSeverityText');
+      text.innerText = sev;
+
+      badge.className = 'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 glass border ';
+      if (sev === 'HIGH') {
+        badge.classList.add('bg-rose-500/20', 'text-rose-400', 'border-rose-500/40', 'pulse-danger');
+      } else if (sev === 'MEDIUM') {
+        badge.classList.add('bg-amber-500/20', 'text-amber-400', 'border-amber-500/40');
+      } else {
+        badge.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/30');
+      }
+
+      // Render probability bars
+      if (data.all_probs) {
+        renderProbabilitiesList(data.all_probs);
+      }
+
+      // Handle Alert Trigger
+      if (data.alert_triggered) {
+        triggerLiveAlertUI(data.alert_info || { class: label, confidence: data.confidence, severity: sev });
+      }
+    }
+
+    function renderProbabilitiesList(probs) {
+      const container = document.getElementById('probabilitiesList');
+      container.innerHTML = '';
+      ALL_CLASSES.forEach(cls => {
+        const val = probs[cls] || 0.0;
+        const pct = (val * 100).toFixed(1);
+        const isAnom = cls !== 'Normal';
+
+        const row = document.createElement('div');
+        row.className = 'space-y-1';
+        row.innerHTML = `
+          <div class="flex justify-between text-[11px] font-medium">
+            <span class="${val > 0.4 ? (isAnom ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold') : 'text-slate-400'}">${cls}</span>
+            <span class="font-mono text-slate-300">${pct}%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div class="${isAnom ? (val > 0.4 ? 'bg-rose-500' : 'bg-amber-500/70') : 'bg-emerald-500'} h-1.5 rounded-full transition-all duration-150" style="width: ${pct}%"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function triggerLiveAlertUI(alertInfo) {
+      // Show toast
+      showToast(
+        `ALERT: ${alertInfo.class} (${(alertInfo.confidence * 100).toFixed(0)}%)`,
+        `Severity: ${alertInfo.severity} — Dispatch notifications transmitted.`,
+        'danger'
+      );
+
+      // Show banner
+      const banner = document.getElementById('liveAlertBanner');
+      banner.classList.remove('hidden');
+      document.getElementById('bannerSeverityBadge').innerText = alertInfo.severity;
+      document.getElementById('bannerAlertReason').innerText = `Anomaly ${alertInfo.class} detected with ${(alertInfo.confidence*100).toFixed(1)}% confidence.`;
+
+      // Ping nav badge
+      document.getElementById('navAlertBadge').classList.remove('hidden');
+    }
+
+    // ── Upload & Analyze ──────────────────────────────────────────────────────
+    function handleDragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('border-blue-500', 'bg-slate-900'); }
+    function handleDragLeave(e) { e.preventDefault(); document.getElementById('dropZone').classList.remove('border-blue-500', 'bg-slate-900'); }
+    function handleDrop(e) {
+      e.preventDefault();
+      handleDragLeave(e);
+      if (e.dataTransfer.files.length) uploadVideoFile(e.dataTransfer.files[0]);
+    }
+    function handleFileSelect(e) {
+      if (e.target.files.length) uploadVideoFile(e.target.files[0]);
+    }
+
+    async function uploadVideoFile(file) {
+      const card = document.getElementById('uploadProgressCard');
+      const bar = document.getElementById('uploadProgressBar');
+      const statusText = document.getElementById('uploadStatusText');
+      const nameText = document.getElementById('uploadFileName');
+      const resultsView = document.getElementById('analysisResultsView');
+
+      nameText.innerText = file.name;
+      card.classList.remove('hidden');
+      resultsView.classList.add('hidden');
+      bar.style.width = '20%';
+      statusText.innerText = 'Uploading video file...';
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch(`${API_BASE}/api/analyze-video`, { method: 'POST', body: formData });
+        const data = await res.json();
+        const jobId = data.job_id;
+
+        bar.style.width = '45%';
+        statusText.innerText = 'Analyzing 16-frame sliding windows (X3D-M)...';
+        pollJobStatus(jobId);
+      } catch (err) {
+        statusText.innerText = 'Upload failed';
+        showToast('Error', err.message, 'error');
+      }
+    }
+
+    async function pollJobStatus(jobId) {
+      const bar = document.getElementById('uploadProgressBar');
+      const statusText = document.getElementById('uploadStatusText');
+
+      const interval = setInterval(async () => {
+        try {
+          const res = await fetch(`${API_BASE}/api/jobs/${jobId}`);
+          const job = await res.json();
+
+          if (job.status === 'processing') {
+            bar.style.width = `${job.progress || 60}%`;
+          } else if (job.status === 'completed') {
+            clearInterval(interval);
+            bar.style.width = '100%';
+            statusText.innerText = 'Analysis Complete!';
+            setTimeout(() => {
+              document.getElementById('uploadProgressCard').classList.add('hidden');
+              renderAnalysisResults(job.result);
+            }, 600);
+          } else if (job.status === 'failed') {
+            clearInterval(interval);
+            statusText.innerText = 'Analysis Failed';
+            showToast('Analysis Error', job.error || 'Job failed', 'error');
+          }
+        } catch (e) {
+          clearInterval(interval);
+        }
+      }, 1500);
+    }
+
+    function jumpToVideoTime(seconds) {
+      const player = document.getElementById('analysisVideoPlayer');
+      if (player) {
+        player.currentTime = Math.max(0, seconds);
+        player.play().catch(() => {});
+      }
+    }
+
+    // ── Real-Time CCTV HUD Overlay ────────────────────────────────────────────
+    let _hudTimeline = [];       // timeline from analysis result
+    let _hudEnabled  = true;
+    let _hudAnimId   = null;
+
+    const SEVERITY_COLORS = {
+      HIGH:   { bg: 'rgba(220,38,38,0.82)',  border: '#f87171', text: '#fff' },
+      MEDIUM: { bg: 'rgba(180,83,9,0.82)',   border: '#fbbf24', text: '#fff' },
+      none:   { bg: 'rgba(16,185,129,0.80)', border: '#34d399', text: '#fff' },
+    };
+
+    function toggleHud(enabled) {
+      _hudEnabled = enabled;
+      if (!enabled) {
+        const canvas = document.getElementById('crimeHudCanvas');
+        if (canvas) { const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height); }
+      }
+    }
+
+    function _getWindowForTime(t) {
+      // Binary-search the pre-sorted timeline for the window covering time t
+      for (let i = _hudTimeline.length - 1; i >= 0; i--) {
+        const w = _hudTimeline[i];
+        if (w.start_sec <= t) return w;
+      }
+      return _hudTimeline[0] || null;
+    }
+
+    function _drawHud(canvas, player) {
+      if (!_hudEnabled || !canvas || !player || player.paused && player.currentTime === 0) return;
+
+      // Keep canvas resolution in sync with its CSS size
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+        canvas.width  = rect.width  * dpr;
+        canvas.height = rect.height * dpr;
+      }
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const win = _getWindowForTime(player.currentTime);
+      if (!win) return;
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      const W = rect.width;
+      const H = rect.height;
+      const label     = win.label     || 'Normal';
+      const conf      = win.confidence || 0;
+      const severity  = win.severity  || 'none';
+      const colors    = SEVERITY_COLORS[severity] || SEVERITY_COLORS['none'];
+      const confPct   = Math.round(conf * 100);
+      const isNormal  = (label === 'Normal');
+
+      // ── Top-right HUD panel ────────────────────────────────────
+      const PAD   = 12;
+      const BOXW  = 200;
+      const BOXH  = 82;
+      const x     = W - BOXW - PAD;
+      const y     = PAD;
+      const RAD   = 8;
+
+      // Panel background with rounded corners
+      ctx.beginPath();
+      ctx.moveTo(x + RAD, y);
+      ctx.lineTo(x + BOXW - RAD, y);
+      ctx.quadraticCurveTo(x + BOXW, y, x + BOXW, y + RAD);
+      ctx.lineTo(x + BOXW, y + BOXH - RAD);
+      ctx.quadraticCurveTo(x + BOXW, y + BOXH, x + BOXW - RAD, y + BOXH);
+      ctx.lineTo(x + RAD, y + BOXH);
+      ctx.quadraticCurveTo(x, y + BOXH, x, y + BOXH - RAD);
+      ctx.lineTo(x, y + RAD);
+      ctx.quadraticCurveTo(x, y, x + RAD, y);
+      ctx.closePath();
+      ctx.fillStyle = colors.bg;
+      ctx.fill();
+      ctx.strokeStyle = colors.border;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // ● Blinking dot for crimes
+      if (!isNormal) {
+        const blink = Math.floor(Date.now() / 550) % 2 === 0;
+        ctx.beginPath();
+        ctx.arc(x + 14, y + 14, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = blink ? colors.border : 'rgba(255,255,255,0.3)';
+        ctx.fill();
+      }
+
+      // Label text
+      ctx.font = 'bold 13px monospace';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(isNormal ? '✓ NORMAL' : '⚠ ' + label.toUpperCase(), x + 26, y + 17);
+
+      // Severity badge
+      ctx.font = 'bold 9px monospace';
+      ctx.fillStyle = colors.border;
+      ctx.fillText(isNormal ? 'CLEAR SCENE' : severity + ' SEVERITY', x + 8, y + 32);
+
+      // Confidence label
+      ctx.font = '10px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.75)';
+      ctx.fillText(`Confidence: ${confPct}%`, x + 8, y + 48);
+
+      // Confidence bar background
+      const BAR_X = x + 8;
+      const BAR_Y = y + 53;
+      const BAR_W = BOXW - 16;
+      const BAR_H = 7;
+      ctx.beginPath();
+      ctx.roundRect(BAR_X, BAR_Y, BAR_W, BAR_H, 3);
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.fill();
+
+      // Confidence bar fill
+      ctx.beginPath();
+      ctx.roundRect(BAR_X, BAR_Y, BAR_W * conf, BAR_H, 3);
+      ctx.fillStyle = colors.border;
+      ctx.fill();
+
+      // Timestamp
+      const ts = player.currentTime;
+      const mm = String(Math.floor(ts / 60)).padStart(2, '0');
+      const ss = String(Math.floor(ts % 60)).padStart(2, '0');
+      ctx.font = 'bold 10px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fillText(`⏱ ${mm}:${ss}`, x + 8, y + 74);
+
+      // ── "LIVE ANALYSIS" watermark in top-left ──────────────────
+      ctx.font = 'bold 10px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillText('◉ CRIMEWATCH LIVE', PAD, PAD + 14);
+
+      // ── Fake scan-line border around entire frame ──────────────
+      ctx.strokeStyle = isNormal ? 'rgba(52,211,153,0.15)' : 'rgba(248,113,113,0.2)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(1, 1, W - 2, H - 2);
+
+      ctx.restore();
+    }
+
+    function _startHudLoop(player, canvas) {
+      if (_hudAnimId) cancelAnimationFrame(_hudAnimId);
+      function loop() {
+        _drawHud(canvas, player);
+        _hudAnimId = requestAnimationFrame(loop);
+      }
+      _hudAnimId = requestAnimationFrame(loop);
+      // Stop the loop when video ends
+      player.addEventListener('ended', () => {
+        if (_hudAnimId) { cancelAnimationFrame(_hudAnimId); _hudAnimId = null; }
+      }, { once: true });
+    }
+
+    function renderAnalysisResults(result) {
+      const resultsView = document.getElementById('analysisResultsView');
+      resultsView.classList.remove('hidden');
+
+      const player = document.getElementById('analysisVideoPlayer');
+      const filename = result.web_video_filename || result.video_path.split(/[\\/]/).pop();
+      player.src = `/static/uploads/${filename}`;
+
+      // ── Boot real-time CCTV HUD ──
+      _hudTimeline = (result.timeline || []).slice().sort((a, b) => a.start_sec - b.start_sec);
+      const canvas = document.getElementById('crimeHudCanvas');
+      const tog = document.getElementById('hudToggle');
+      _hudEnabled = tog ? tog.checked : true;
+      if (_hudAnimId) cancelAnimationFrame(_hudAnimId);
+      player.addEventListener('loadedmetadata', () => _startHudLoop(player, canvas), { once: true });
+      if (player.readyState >= 1) _startHudLoop(player, canvas);
+
+      document.getElementById('analysisVideoMeta').innerText = 
+        `FPS: ${result.fps} • Frames: ${result.total_frames} • Duration: ${result.duration_sec}s`;
+
+      // ── Render Prominent Overall Video Verdict Banner ──
+      const overallCard = document.getElementById('overallVerdictCard');
+      let verdict = result.overall_verdict;
+      if (!verdict) {
+        const evs = result.merged_events || [];
+        if (evs.length > 0) {
+          const top = evs.reduce((prev, curr) => curr.max_confidence > prev.max_confidence ? curr : prev, evs[0]);
+          verdict = {
+            class: top.class,
+            confidence: top.max_confidence,
+            severity: top.severity || 'HIGH',
+            peak_sec: top.start_sec,
+            peak_timestamp_str: `${String(Math.floor(top.start_sec / 60)).padStart(2, '0')}:${String(Math.floor(top.start_sec % 60)).padStart(2, '0')}`,
+            is_crime: top.class !== 'Normal'
+          };
+        } else {
+          verdict = {
+            class: 'Normal',
+            confidence: 0.95,
+            severity: 'none',
+            peak_sec: 0,
+            peak_timestamp_str: '00:00',
+            is_crime: false
+          };
+        }
+      }
+
+      const confPct = (verdict.confidence * 100).toFixed(1);
+      const isHigh = verdict.severity === 'HIGH';
+
+      if (verdict.is_crime) {
+        const cardTheme = isHigh
+          ? 'bg-gradient-to-r from-rose-950/60 via-slate-900 to-slate-900 border-rose-500/50 shadow-rose-950/30'
+          : 'bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 border-amber-500/50 shadow-amber-950/30';
+
+        overallCard.className = `border rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all ${cardTheme}`;
+        overallCard.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${isHigh ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-500 text-slate-950'}">
+                  ${verdict.severity} SEVERITY DETECTED
+                </span>
+                <span class="text-xs font-mono text-slate-400">Total Video Classification Verdict</span>
+              </div>
+              <div class="flex items-start sm:items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl ${isHigh ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'} flex items-center justify-center font-bold text-2xl flex-shrink-0">
+                  ${isHigh ? '🚨' : '⚠️'}
+                </div>
+                <div>
+                  <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                    ${verdict.class} DETECTED
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+                    Primary Crime: <span class="font-bold text-white">${verdict.class}</span> &bull; 
+                    Highest Confidence: <span class="font-bold ${isHigh ? 'text-rose-400' : 'text-amber-400'}">${confPct}%</span> &bull; 
+                    Peak Incident Timestamp: <span class="text-rose-300 font-bold font-mono underline cursor-pointer" onclick="jumpToVideoTime(${verdict.peak_sec})">${verdict.peak_timestamp_str} (${verdict.peak_sec}s)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Jump Action & Confidence Meter -->
+            <div class="flex flex-col sm:flex-row md:flex-col items-start md:items-end gap-3 min-w-[240px]">
+              <div class="w-full text-right hidden sm:block">
+                <div class="flex items-center justify-between text-xs font-mono mb-1">
+                  <span class="text-slate-400">Peak Confidence</span>
+                  <span class="font-bold text-white">${confPct}%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+                  <div class="${isHigh ? 'bg-rose-500' : 'bg-amber-500'} h-2 rounded-full" style="width: ${confPct}%"></div>
+                </div>
+              </div>
+              <button onclick="jumpToVideoTime(${verdict.peak_sec})" class="w-full px-4 py-2.5 rounded-xl ${isHigh ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-900/40' : 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/40'} text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i> Jump to Peak Crime (${verdict.peak_timestamp_str})
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        overallCard.className = 'border border-emerald-500/40 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all';
+        overallCard.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500 text-slate-950">
+                  CLEAN FOOTAGE
+                </span>
+                <span class="text-xs font-mono text-slate-400">Total Video Classification Verdict</span>
+              </div>
+              <div class="flex items-start sm:items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-2xl flex-shrink-0">
+                  🛡️
+                </div>
+                <div>
+                  <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                    NORMAL — NO CRIME DETECTED
+                  </h2>
+                  <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+                    No violent actions, property crimes, or anomalies detected. Baseline activity with ${confPct}% normal confidence.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="px-4 py-2 rounded-xl bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Verified Safe
+              </span>
+            </div>
+          </div>
+        `;
+      }
+
+      // ── Render High-Confidence Timestamps & Incidents ──
+      const container = document.getElementById('detectedEventsContainer');
+      container.innerHTML = '';
+
+      const rawEvents = result.merged_events || [];
+      const targetCrime = verdict.is_crime ? verdict.class : null;
+      
+      // Filter for moments where confidence is high for the detected crime
+      let events = rawEvents;
+      if (targetCrime) {
+        const crimeMatches = rawEvents.filter(e => e.class === targetCrime);
+        if (crimeMatches.length > 0) {
+          events = crimeMatches;
+        }
+      }
+
+      // Keep only top high-confidence moments (limit to top 6 peak timestamps)
+      events.sort((a, b) => b.max_confidence - a.max_confidence);
+      events = events.slice(0, 6);
+      // Sort chronologically for intuitive timeline jumping
+      events.sort((a, b) => a.start_sec - b.start_sec);
+
+      document.getElementById('incidentCountBadge').innerText = `${events.length} key moment(s)`;
+
+      if (events.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-xs text-slate-500 bg-slate-900/60 border border-slate-800 rounded-xl">
+            <i data-lucide="check" class="w-6 h-6 text-emerald-500 mx-auto mb-2"></i>
+            No high-confidence anomaly spikes detected above the threshold.
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      events.forEach((ev, idx) => {
+        const isEvHigh = ev.severity === 'HIGH';
+        const card = document.createElement('div');
+        card.className = `p-3.5 rounded-xl border cursor-pointer transition flex items-center justify-between ${isEvHigh ? 'bg-rose-500/10 border-rose-500/30 hover:border-rose-500' : 'bg-amber-500/10 border-amber-500/30 hover:border-amber-500'}`;
+        card.onclick = () => jumpToVideoTime(ev.start_sec);
+
+        const startM = String(Math.floor(ev.start_sec / 60)).padStart(2, '0');
+        const startS = String(Math.floor(ev.start_sec % 60)).padStart(2, '0');
+        const endM = String(Math.floor(ev.end_sec / 60)).padStart(2, '0');
+        const endS = String(Math.floor(ev.end_sec % 60)).padStart(2, '0');
+        const timeInterval = `${startM}:${startS} - ${endM}:${endS}`;
+        const confPercent = Math.round(ev.max_confidence * 100);
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-xs text-white">${ev.class}</span>
+              <span class="px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${isEvHigh ? 'bg-rose-500 text-white' : 'bg-amber-500 text-slate-950'}">${ev.severity}</span>
+            </div>
+            <p class="text-[11px] font-mono font-bold ${isEvHigh ? 'text-rose-400' : 'text-amber-400'} mt-1 flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> ${timeInterval}
+            </p>
+            <p class="text-[10px] text-slate-400 mt-0.5">Peak confidence spike: ${confPercent}%</p>
+          </div>
+          <div class="text-right flex flex-col items-end">
+            <span class="text-sm font-mono font-black ${isEvHigh ? 'text-rose-400' : 'text-amber-400'}">${confPercent}%</span>
+            <span class="text-[9px] text-slate-400 uppercase font-mono">Confidence</span>
+            <span class="text-[10px] text-blue-400 mt-1 flex items-center gap-0.5 font-semibold hover:underline">
+              Seek to ${startM}:${startS} <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            </span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // ── Incident Alerts Table ─────────────────────────────────────────────────
+    async function clearAllAlerts() {
+      if (!confirm("Are you sure you want to clear all stored alerts? This will give you a clean slate.")) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/alerts`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast('Alerts Cleared', 'All stored alerts have been wiped.', 'success');
+          fetchAlertsTable();
+          fetchStats();
+        } else {
+          showToast('Error', 'Failed to clear alerts', 'error');
+        }
+      } catch (e) {
+        showToast('Error', 'Connection error clearing alerts', 'error');
+      }
+    }
+
+    async function fetchAlertsTable() {
+      const statusFilter = document.getElementById('alertFilterStatus').value;
+      let url = `${API_BASE}/api/alerts?limit=50`;
+      if (statusFilter) url += `&status_filter=${statusFilter}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const tbody = document.getElementById('alertsTableBody');
+        tbody.innerHTML = '';
+
+        if (!data.alerts || data.alerts.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-500">No stored alerts match this query.</td></tr>`;
+          return;
+        }
+
+        data.alerts.forEach(a => {
+          const isHigh = a.severity === 'HIGH';
+          const snapUrl = a.snapshot_path ? (a.snapshot_path.startsWith('http') ? a.snapshot_path : `${API_BASE}${a.snapshot_path}`) : null;
+          const timeFormatted = a.timestamp ? new Date(a.timestamp).toLocaleString() : 'N/A';
+
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-800/40 transition';
+          tr.innerHTML = `
+            <td class="py-3 px-4">
+              ${snapUrl ? `
+                <img src="${snapUrl}" onclick="openImageModal('${snapUrl}')" class="w-14 h-9 object-cover rounded-md border border-slate-700 cursor-pointer hover:opacity-80 transition" alt="Snapshot">
+              ` : `<span class="text-slate-600 font-mono text-[10px]">No Snapshot</span>`}
+            </td>
+            <td class="py-3 px-4 font-bold text-white">${a.label}</td>
+            <td class="py-3 px-4 font-mono text-slate-300">${(a.confidence * 100).toFixed(1)}%</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${isHigh ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
+                ${a.severity}
+              </span>
+            </td>
+            <td class="py-3 px-4 font-mono text-slate-400 text-[11px]">${timeFormatted}</td>
+            <td class="py-3 px-4 font-mono text-slate-400 text-[11px]">${a.notified_channels || 'none'}</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${a.status === 'confirmed' ? 'bg-emerald-500/20 text-emerald-400' : (a.status === 'dismissed' ? 'bg-slate-800 text-slate-500' : 'bg-blue-500/20 text-blue-400')}">
+                ${a.status}
+              </span>
+            </td>
+            <td class="py-3 px-4 text-right space-x-1">
+              <button onclick="updateAlertStatus(${a.id}, 'confirmed')" title="Confirm Incident" class="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </button>
+              <button onclick="updateAlertStatus(${a.id}, 'dismissed')" title="Dismiss False Positive" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 transition">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        lucide.createIcons();
+      } catch (err) {
+        console.error('Error fetching alerts:', err);
+      }
+    }
+
+    async function updateAlertStatus(alertId, newStatus) {
+      try {
+        await fetch(`${API_BASE}/api/alerts/${alertId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        showToast('Updated', `Alert #${alertId} marked as ${newStatus}`, 'success');
+        fetchAlertsTable();
+      } catch (e) {
+        showToast('Error', e.message, 'error');
+      }
+    }
+
+    // ── Recipients CRUD ───────────────────────────────────────────────────────
+    async function fetchRecipients() {
+      try {
+        const res = await fetch(`${API_BASE}/api/recipients`);
+        const recipients = await res.json();
+        const tbody = document.getElementById('recipientsTableBody');
+        tbody.innerHTML = '';
+
+        if (!recipients.length) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-500">No recipients configured.</td></tr>`;
+          return;
+        }
+
+        recipients.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-800/40 transition';
+          tr.innerHTML = `
+            <td class="py-3 px-4 font-semibold text-white">${r.name}</td>
+            <td class="py-3 px-4 font-mono text-slate-400 uppercase text-[10px]">${r.role}</td>
+            <td class="py-3 px-4 font-mono text-[11px] text-slate-300">
+              ${r.email || ''} ${r.phone ? `&bull; ${r.phone}` : ''}
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.min_severity === 'HIGH' ? 'bg-rose-500/20 text-rose-400' : 'bg-amber-500/20 text-amber-400'}">${r.min_severity}</span>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <button onclick="deleteRecipient(${r.id})" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 transition"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        lucide.createIcons();
+      } catch (err) {
+        console.error('Error fetching recipients:', err);
+      }
+    }
+
+    function openAddRecipientModal() { document.getElementById('addRecipientModal').classList.remove('hidden'); }
+    function closeAddRecipientModal() { document.getElementById('addRecipientModal').classList.add('hidden'); }
+
+    async function submitAddRecipient(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('recipName').value,
+        role: document.getElementById('recipRole').value,
+        email: document.getElementById('recipEmail').value || null,
+        phone: document.getElementById('recipPhone').value || null,
+        min_severity: document.getElementById('recipMinSev').value,
+        active: true
+      };
+
+      try {
+        await fetch(`${API_BASE}/api/recipients`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        closeAddRecipientModal();
+        showToast('Success', 'Recipient registered successfully', 'success');
+        fetchRecipients();
+      } catch (err) {
+        showToast('Error', err.message, 'error');
+      }
+    }
+
+    async function deleteRecipient(id) {
+      if (!confirm('Remove this recipient from dispatch protocols?')) return;
+      try {
+        await fetch(`${API_BASE}/api/recipients/${id}`, { method: 'DELETE' });
+        showToast('Removed', 'Recipient deleted', 'success');
+        fetchRecipients();
+      } catch (e) {
+        showToast('Error', e.message, 'error');
+      }
+    }
+
+    // ── Diagnostic Test Alert Modal ──────────────────────────────────────────
+    function openTestAlertModal() { document.getElementById('testAlertModal').classList.remove('hidden'); }
+    function closeTestAlertModal() { document.getElementById('testAlertModal').classList.add('hidden'); }
+
+    async function executeTestAlert() {
+      const btn = document.getElementById('btnExecuteTestAlert');
+      const feedback = document.getElementById('testAlertFeedback');
+      btn.disabled = true;
+      btn.innerText = 'Dispatching test...';
+      feedback.classList.add('hidden');
+
+      const payload = {
+        channel: document.getElementById('testChannel').value,
+        email: document.getElementById('testEmailInput').value || null,
+        phone: document.getElementById('testPhoneInput').value || null,
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/api/test-alert`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        feedback.classList.remove('hidden');
+        feedback.className = 'p-3 rounded-xl text-xs font-mono bg-slate-950 border border-slate-800 text-slate-300';
+        feedback.innerText = JSON.stringify(data.results, null, 2);
+        showToast('Test Executed', 'Diagnostic alert test completed', 'info');
+      } catch (err) {
+        feedback.classList.remove('hidden');
+        feedback.className = 'p-3 rounded-xl text-xs font-mono bg-rose-500/10 border border-rose-500/30 text-rose-400';
+        feedback.innerText = err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> Send Test`;
+        lucide.createIcons();
+      }
+    }
+
+    // ── Analytics & Charts ────────────────────────────────────────────────────
+    function initAnalyticsCharts() {
+      const ctxClass = document.getElementById('chartClassDistribution').getContext('2d');
+      classChart = new Chart(ctxClass, {
+        type: 'bar',
+        data: {
+          labels: ALL_CLASSES,
+          datasets: [{
+            label: 'Detected Incidents',
+            data: [0, 0, 0, 0, 0, 0, 0],
+            backgroundColor: '#3b82f6',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono' } } },
+            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans' } } }
+          }
+        }
+      });
+
+      const ctxSev = document.getElementById('chartSeverityDistribution').getContext('2d');
+      severityChart = new Chart(ctxSev, {
+        type: 'doughnut',
+        data: {
+          labels: ['HIGH', 'MEDIUM'],
+          datasets: [{
+            data: [0, 0],
+            backgroundColor: ['#f43f5e', '#f59e0b'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12 } } },
+          cutout: '70%'
+        }
+      });
+    }
+
+    async function refreshAnalytics() {
+      try {
+        const res = await fetch(`${API_BASE}/api/stats`);
+        const stats = await res.json();
+
+        document.getElementById('kpiTotalAlerts').innerText = stats.total_alerts || 0;
+        document.getElementById('kpiHighAlerts').innerText = stats.severity_breakdown.HIGH || 0;
+        document.getElementById('kpiMedAlerts').innerText = stats.severity_breakdown.MEDIUM || 0;
+        document.getElementById('kpiRecipients').innerText = stats.active_recipients || 0;
+
+        // Update charts
+        const counts = ALL_CLASSES.map(cls => (stats.class_breakdown && stats.class_breakdown[cls]) ? stats.class_breakdown[cls] : 0);
+        classChart.data.datasets[0].data = counts;
+        classChart.update();
+
+        severityChart.data.datasets[0].data = [
+          stats.severity_breakdown.HIGH || 0,
+          stats.severity_breakdown.MEDIUM || 0
+        ];
+        severityChart.update();
+      } catch (err) {
+        console.error('Error refreshing analytics:', err);
+      }
+    }
+
+    // ── Image Lightbox ────────────────────────────────────────────────────────
+    function openImageModal(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('imageLightboxModal').classList.remove('hidden');
+    }
+    function closeImageModal() {
+      document.getElementById('imageLightboxModal').classList.add('hidden');
+    }
+
+    // ── Toast Utility ─────────────────────────────────────────────────────────
+    function showToast(title, message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `p-4 rounded-xl border shadow-2xl glass flex items-start gap-3 pointer-events-auto transition-all transform duration-300 translate-y-2 opacity-0 ${
+        type === 'danger' ? 'border-rose-500/50 bg-rose-500/10 text-rose-300' :
+        type === 'success' ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300' :
+        'border-blue-500/50 bg-blue-500/10 text-blue-300'
+      }`;
+
+      toast.innerHTML = `
+        <div class="flex-1">
+          <p class="font-bold text-xs text-white">${title}</p>
+          <p class="text-[11px] opacity-90 mt-0.5">${message}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white">&times;</button>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 20);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
+

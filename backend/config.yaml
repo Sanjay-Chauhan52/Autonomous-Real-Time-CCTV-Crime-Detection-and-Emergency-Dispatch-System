@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# CrimeWatch Inference & Stream Analyzer Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+
+model:
+  checkpoint_path: "models/x3d_crime.pt"
+  num_frames: 16
+  frame_size: 182
+  stride: 8
+  mean: [0.45, 0.45, 0.45]
+  std: [0.225, 0.225, 0.225]
+
+detection:
+  confidence_threshold: 0.70    # Minimum confidence to consider an anomaly
+  persistence_windows: 3        # Number of consecutive windows required to trigger an alert
+  cooldown_seconds: 60.0        # Per-class suppression cooldown after an alert
+
+severity_map:
+  Shooting: "HIGH"
+  Robbery: "HIGH"
+  Assault: "HIGH"
+  Fighting: "HIGH"
+  Shoplifting: "MEDIUM"
+  Burglary: "MEDIUM"
+  Normal: "none"
+

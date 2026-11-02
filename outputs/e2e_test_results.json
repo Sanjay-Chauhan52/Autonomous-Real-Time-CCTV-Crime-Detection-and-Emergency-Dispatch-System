@@ -1,0 +1,2944 @@
+{
+  "upload_analysis": {
+    "Assault": {
+      "file": "Assault003_x264.mp4",
+      "duration": 148.1,
+      "windows": 554,
+      "top_prediction": "Burglary",
+      "distribution": {
+        "Burglary": 373,
+        "Shooting": 176,
+        "Assault": 4,
+        "Fighting": 1
+      },
+      "merged_events_count": 113,
+      "merged_events": [
+        {
+          "class": "Burglary",
+          "start_sec": 0.0,
+          "end_sec": 4.27,
+          "max_confidence": 0.4111,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 4.0,
+          "end_sec": 4.53,
+          "max_confidence": 0.3203,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 4.27,
+          "end_sec": 11.2,
+          "max_confidence": 0.4475,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 10.93,
+          "end_sec": 11.47,
+          "max_confidence": 0.2649,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 11.2,
+          "end_sec": 11.73,
+          "max_confidence": 0.2559,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 11.47,
+          "end_sec": 12.8,
+          "max_confidence": 0.3767,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 12.53,
+          "end_sec": 13.07,
+          "max_confidence": 0.2566,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 12.8,
+          "end_sec": 16.8,
+          "max_confidence": 0.4053,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 16.53,
+          "end_sec": 17.33,
+          "max_confidence": 0.3513,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 17.07,
+          "end_sec": 17.87,
+          "max_confidence": 0.3499,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 17.6,
+          "end_sec": 18.13,
+          "max_confidence": 0.2966,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 17.87,
+          "end_sec": 18.4,
+          "max_confidence": 0.2898,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 18.13,
+          "end_sec": 18.93,
+          "max_confidence": 0.3938,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 18.67,
+          "end_sec": 19.2,
+          "max_confidence": 0.3499,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 18.93,
+          "end_sec": 19.47,
+          "max_confidence": 0.2844,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 19.2,
+          "end_sec": 19.73,
+          "max_confidence": 0.2595,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 19.73,
+          "end_sec": 21.33,
+          "max_confidence": 0.2947,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 21.07,
+          "end_sec": 21.6,
+          "max_confidence": 0.2563,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 21.6,
+          "end_sec": 26.93,
+          "max_confidence": 0.447,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 26.67,
+          "end_sec": 27.73,
+          "max_confidence": 0.28,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 27.47,
+          "end_sec": 28.8,
+          "max_confidence": 0.3159,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 28.53,
+          "end_sec": 31.47,
+          "max_confidence": 0.3716,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 31.47,
+          "end_sec": 32.0,
+          "max_confidence": 0.2615,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 31.73,
+          "end_sec": 32.53,
+          "max_confidence": 0.3347,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 32.27,
+          "end_sec": 33.87,
+          "max_confidence": 0.3125,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 33.6,
+          "end_sec": 37.07,
+          "max_confidence": 0.3347,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 36.8,
+          "end_sec": 38.13,
+          "max_confidence": 0.3628,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 37.87,
+          "end_sec": 40.0,
+          "max_confidence": 0.3743,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 39.73,
+          "end_sec": 40.53,
+          "max_confidence": 0.3088,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 40.27,
+          "end_sec": 40.8,
+          "max_confidence": 0.3135,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 40.53,
+          "end_sec": 42.13,
+          "max_confidence": 0.4082,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 41.87,
+          "end_sec": 43.47,
+          "max_confidence": 0.4458,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 43.2,
+          "end_sec": 44.0,
+          "max_confidence": 0.2981,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 43.73,
+          "end_sec": 45.6,
+          "max_confidence": 0.3088,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 45.33,
+          "end_sec": 45.87,
+          "max_confidence": 0.293,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 45.87,
+          "end_sec": 46.4,
+          "max_confidence": 0.2566,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 46.13,
+          "end_sec": 46.93,
+          "max_confidence": 0.3049,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 46.67,
+          "end_sec": 47.47,
+          "max_confidence": 0.2712,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 47.47,
+          "end_sec": 48.0,
+          "max_confidence": 0.2839,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 47.73,
+          "end_sec": 48.53,
+          "max_confidence": 0.3035,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 48.27,
+          "end_sec": 49.6,
+          "max_confidence": 0.3228,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 49.33,
+          "end_sec": 49.87,
+          "max_confidence": 0.2766,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 49.6,
+          "end_sec": 50.13,
+          "max_confidence": 0.2666,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 50.13,
+          "end_sec": 50.67,
+          "max_confidence": 0.2788,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 50.4,
+          "end_sec": 50.93,
+          "max_confidence": 0.2942,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 50.67,
+          "end_sec": 52.0,
+          "max_confidence": 0.3606,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 51.73,
+          "end_sec": 53.87,
+          "max_confidence": 0.3994,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 53.6,
+          "end_sec": 54.13,
+          "max_confidence": 0.3337,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 53.87,
+          "end_sec": 55.2,
+          "max_confidence": 0.4062,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 54.93,
+          "end_sec": 55.47,
+          "max_confidence": 0.3022,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 55.2,
+          "end_sec": 64.53,
+          "max_confidence": 0.4714,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 64.53,
+          "end_sec": 65.07,
+          "max_confidence": 0.2737,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 64.8,
+          "end_sec": 69.33,
+          "max_confidence": 0.4431,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 69.07,
+          "end_sec": 69.6,
+          "max_confidence": 0.3003,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 69.33,
+          "end_sec": 69.87,
+          "max_confidence": 0.2798,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 69.6,
+          "end_sec": 70.93,
+          "max_confidence": 0.3425,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 70.67,
+          "end_sec": 71.2,
+          "max_confidence": 0.2839,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 70.93,
+          "end_sec": 71.73,
+          "max_confidence": 0.3271,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 71.47,
+          "end_sec": 73.6,
+          "max_confidence": 0.3389,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 73.33,
+          "end_sec": 74.4,
+          "max_confidence": 0.3369,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 74.13,
+          "end_sec": 75.73,
+          "max_confidence": 0.3948,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 75.47,
+          "end_sec": 76.0,
+          "max_confidence": 0.3298,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 75.73,
+          "end_sec": 86.4,
+          "max_confidence": 0.449,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 86.13,
+          "end_sec": 86.93,
+          "max_confidence": 0.2976,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 86.67,
+          "end_sec": 90.4,
+          "max_confidence": 0.4119,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 90.13,
+          "end_sec": 91.47,
+          "max_confidence": 0.354,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 91.2,
+          "end_sec": 94.93,
+          "max_confidence": 0.4133,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Fighting",
+          "start_sec": 94.67,
+          "end_sec": 95.2,
+          "max_confidence": 0.2861,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 94.93,
+          "end_sec": 95.47,
+          "max_confidence": 0.3225,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 95.47,
+          "end_sec": 103.2,
+          "max_confidence": 0.4072,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 102.93,
+          "end_sec": 103.47,
+          "max_confidence": 0.3513,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 103.2,
+          "end_sec": 103.73,
+          "max_confidence": 0.332,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 103.47,
+          "end_sec": 104.27,
+          "max_confidence": 0.3237,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 104.0,
+          "end_sec": 105.87,
+          "max_confidence": 0.4255,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 105.6,
+          "end_sec": 106.67,
+          "max_confidence": 0.3269,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 106.4,
+          "end_sec": 106.93,
+          "max_confidence": 0.3049,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 106.67,
+          "end_sec": 107.2,
+          "max_confidence": 0.28,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 106.93,
+          "end_sec": 108.8,
+          "max_confidence": 0.3191,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 108.53,
+          "end_sec": 109.87,
+          "max_confidence": 0.3738,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 109.6,
+          "end_sec": 112.0,
+          "max_confidence": 0.3516,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 111.73,
+          "end_sec": 112.53,
+          "max_confidence": 0.3245,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 112.27,
+          "end_sec": 113.07,
+          "max_confidence": 0.3115,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 112.8,
+          "end_sec": 114.13,
+          "max_confidence": 0.3271,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 113.87,
+          "end_sec": 114.67,
+          "max_confidence": 0.3074,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 114.4,
+          "end_sec": 116.53,
+          "max_confidence": 0.3479,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 116.53,
+          "end_sec": 117.6,
+          "max_confidence": 0.3015,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 117.33,
+          "end_sec": 117.87,
+          "max_confidence": 0.3533,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 117.6,
+          "end_sec": 119.47,
+          "max_confidence": 0.3545,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 119.2,
+          "end_sec": 120.0,
+          "max_confidence": 0.3162,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 119.73,
+          "end_sec": 120.53,
+          "max_confidence": 0.2759,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 120.27,
+          "end_sec": 122.4,
+          "max_confidence": 0.4043,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 122.13,
+          "end_sec": 122.67,
+          "max_confidence": 0.3098,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 122.4,
+          "end_sec": 123.73,
+          "max_confidence": 0.3701,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 123.47,
+          "end_sec": 124.53,
+          "max_confidence": 0.3208,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 124.27,
+          "end_sec": 125.33,
+          "max_confidence": 0.2944,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 125.07,
+          "end_sec": 127.73,
+          "max_confidence": 0.4316,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 127.47,
+          "end_sec": 128.27,
+          "max_confidence": 0.3611,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 128.0,
+          "end_sec": 128.53,
+          "max_confidence": 0.3223,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 128.27,
+          "end_sec": 129.33,
+          "max_confidence": 0.3032,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 129.07,
+          "end_sec": 130.4,
+          "max_confidence": 0.3293,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 130.13,
+          "end_sec": 130.67,
+          "max_confidence": 0.2888,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 130.4,
+          "end_sec": 132.8,
+          "max_confidence": 0.4292,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 132.53,
+          "end_sec": 137.33,
+          "max_confidence": 0.4072,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 137.07,
+          "end_sec": 137.6,
+          "max_confidence": 0.3457,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 137.33,
+          "end_sec": 139.2,
+          "max_confidence": 0.3777,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 138.93,
+          "end_sec": 139.47,
+          "max_confidence": 0.3406,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 139.2,
+          "end_sec": 142.4,
+          "max_confidence": 0.4893,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 142.13,
+          "end_sec": 142.67,
+          "max_confidence": 0.3062,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 142.4,
+          "end_sec": 143.73,
+          "max_confidence": 0.3279,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 143.47,
+          "end_sec": 144.27,
+          "max_confidence": 0.3604,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 144.0,
+          "end_sec": 144.53,
+          "max_confidence": 0.3284,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 144.27,
+          "end_sec": 145.07,
+          "max_confidence": 0.3284,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 144.8,
+          "end_sec": 148.0,
+          "max_confidence": 0.4114,
+          "severity": "MEDIUM"
+        }
+      ]
+    },
+    "Burglary": {
+      "file": "Burglary016_x264.mp4",
+      "duration": 175.27,
+      "windows": 656,
+      "top_prediction": "Burglary",
+      "distribution": {
+        "Burglary": 606,
+        "Fighting": 2,
+        "Normal": 46,
+        "Shooting": 2
+      },
+      "merged_events_count": 59,
+      "merged_events": [
+        {
+          "class": "Burglary",
+          "start_sec": 1.87,
+          "end_sec": 3.2,
+          "max_confidence": 0.2708,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Fighting",
+          "start_sec": 4.53,
+          "end_sec": 5.07,
+          "max_confidence": 0.2522,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 5.07,
+          "end_sec": 5.6,
+          "max_confidence": 0.2576,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 10.13,
+          "end_sec": 10.67,
+          "max_confidence": 0.2559,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 10.67,
+          "end_sec": 11.2,
+          "max_confidence": 0.2539,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 16.0,
+          "end_sec": 16.8,
+          "max_confidence": 0.2756,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 17.33,
+          "end_sec": 18.93,
+          "max_confidence": 0.2622,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 18.93,
+          "end_sec": 19.73,
+          "max_confidence": 0.2646,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 19.73,
+          "end_sec": 20.53,
+          "max_confidence": 0.2607,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 21.87,
+          "end_sec": 22.4,
+          "max_confidence": 0.2549,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 22.67,
+          "end_sec": 23.2,
+          "max_confidence": 0.2642,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 23.2,
+          "end_sec": 24.0,
+          "max_confidence": 0.2646,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 46.13,
+          "end_sec": 47.47,
+          "max_confidence": 0.2715,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 48.0,
+          "end_sec": 48.53,
+          "max_confidence": 0.2515,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 54.4,
+          "end_sec": 54.93,
+          "max_confidence": 0.2532,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 60.8,
+          "end_sec": 62.13,
+          "max_confidence": 0.2756,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 62.93,
+          "end_sec": 63.73,
+          "max_confidence": 0.2771,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 63.73,
+          "end_sec": 64.27,
+          "max_confidence": 0.2515,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 71.47,
+          "end_sec": 72.0,
+          "max_confidence": 0.2512,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 86.4,
+          "end_sec": 86.93,
+          "max_confidence": 0.27,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 89.07,
+          "end_sec": 89.6,
+          "max_confidence": 0.2585,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 89.6,
+          "end_sec": 90.4,
+          "max_confidence": 0.2563,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 90.93,
+          "end_sec": 91.47,
+          "max_confidence": 0.2505,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 91.47,
+          "end_sec": 92.27,
+          "max_confidence": 0.2764,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 92.27,
+          "end_sec": 92.8,
+          "max_confidence": 0.2729,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 93.07,
+          "end_sec": 93.6,
+          "max_confidence": 0.2507,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 96.27,
+          "end_sec": 96.8,
+          "max_confidence": 0.2551,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 97.33,
+          "end_sec": 97.87,
+          "max_confidence": 0.2502,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 102.13,
+          "end_sec": 102.67,
+          "max_confidence": 0.2505,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 106.13,
+          "end_sec": 106.93,
+          "max_confidence": 0.2754,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 107.47,
+          "end_sec": 108.27,
+          "max_confidence": 0.2634,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 108.27,
+          "end_sec": 109.07,
+          "max_confidence": 0.2749,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 109.07,
+          "end_sec": 110.13,
+          "max_confidence": 0.2717,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 110.93,
+          "end_sec": 111.47,
+          "max_confidence": 0.2764,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 112.0,
+          "end_sec": 112.53,
+          "max_confidence": 0.26,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 119.73,
+          "end_sec": 120.27,
+          "max_confidence": 0.2659,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 121.6,
+          "end_sec": 122.93,
+          "max_confidence": 0.2783,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 122.93,
+          "end_sec": 123.47,
+          "max_confidence": 0.2627,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 123.47,
+          "end_sec": 124.0,
+          "max_confidence": 0.2551,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 125.33,
+          "end_sec": 125.87,
+          "max_confidence": 0.2629,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 132.27,
+          "end_sec": 133.07,
+          "max_confidence": 0.2832,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 133.07,
+          "end_sec": 133.6,
+          "max_confidence": 0.2502,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 141.07,
+          "end_sec": 145.33,
+          "max_confidence": 0.3164,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 145.33,
+          "end_sec": 149.07,
+          "max_confidence": 0.3076,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 150.13,
+          "end_sec": 150.67,
+          "max_confidence": 0.2671,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 150.93,
+          "end_sec": 151.47,
+          "max_confidence": 0.2524,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 153.87,
+          "end_sec": 154.93,
+          "max_confidence": 0.2664,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 156.53,
+          "end_sec": 157.6,
+          "max_confidence": 0.2661,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 160.0,
+          "end_sec": 160.53,
+          "max_confidence": 0.2507,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 160.8,
+          "end_sec": 161.33,
+          "max_confidence": 0.2512,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 161.33,
+          "end_sec": 161.87,
+          "max_confidence": 0.2803,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 162.13,
+          "end_sec": 164.0,
+          "max_confidence": 0.2766,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 164.27,
+          "end_sec": 164.8,
+          "max_confidence": 0.2605,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 164.8,
+          "end_sec": 166.67,
+          "max_confidence": 0.2673,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 167.73,
+          "end_sec": 168.8,
+          "max_confidence": 0.269,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 169.33,
+          "end_sec": 170.13,
+          "max_confidence": 0.2683,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 170.13,
+          "end_sec": 171.2,
+          "max_confidence": 0.2666,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 171.2,
+          "end_sec": 172.8,
+          "max_confidence": 0.2874,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 172.8,
+          "end_sec": 173.33,
+          "max_confidence": 0.2532,
+          "severity": "MEDIUM"
+        }
+      ]
+    },
+    "Fighting": {
+      "file": "Fighting019_x264.mp4",
+      "duration": 107.1,
+      "windows": 400,
+      "top_prediction": "Robbery",
+      "distribution": {
+        "Fighting": 3,
+        "Normal": 5,
+        "Burglary": 32,
+        "Shooting": 85,
+        "Shoplifting": 50,
+        "Robbery": 222,
+        "Assault": 3
+      },
+      "merged_events_count": 57,
+      "merged_events": [
+        {
+          "class": "Shooting",
+          "start_sec": 2.4,
+          "end_sec": 3.47,
+          "max_confidence": 0.2747,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 4.53,
+          "end_sec": 5.6,
+          "max_confidence": 0.2544,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 6.93,
+          "end_sec": 7.47,
+          "max_confidence": 0.2566,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 11.73,
+          "end_sec": 12.53,
+          "max_confidence": 0.2617,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 12.53,
+          "end_sec": 13.07,
+          "max_confidence": 0.2725,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 12.8,
+          "end_sec": 13.33,
+          "max_confidence": 0.2793,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 13.87,
+          "end_sec": 14.67,
+          "max_confidence": 0.2866,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 14.4,
+          "end_sec": 14.93,
+          "max_confidence": 0.2625,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 14.93,
+          "end_sec": 15.47,
+          "max_confidence": 0.2754,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 15.47,
+          "end_sec": 16.53,
+          "max_confidence": 0.2815,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 16.27,
+          "end_sec": 17.07,
+          "max_confidence": 0.2705,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 17.6,
+          "end_sec": 18.13,
+          "max_confidence": 0.2546,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 18.4,
+          "end_sec": 19.2,
+          "max_confidence": 0.262,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 18.93,
+          "end_sec": 19.73,
+          "max_confidence": 0.2783,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 19.47,
+          "end_sec": 20.8,
+          "max_confidence": 0.2825,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 20.8,
+          "end_sec": 21.6,
+          "max_confidence": 0.2683,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 21.33,
+          "end_sec": 21.87,
+          "max_confidence": 0.2551,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 24.53,
+          "end_sec": 25.87,
+          "max_confidence": 0.2769,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 25.6,
+          "end_sec": 26.13,
+          "max_confidence": 0.2852,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 25.87,
+          "end_sec": 26.4,
+          "max_confidence": 0.2595,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 26.93,
+          "end_sec": 28.0,
+          "max_confidence": 0.3274,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 27.73,
+          "end_sec": 28.53,
+          "max_confidence": 0.262,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 31.2,
+          "end_sec": 31.73,
+          "max_confidence": 0.2529,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 31.73,
+          "end_sec": 32.53,
+          "max_confidence": 0.2891,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 32.53,
+          "end_sec": 33.07,
+          "max_confidence": 0.2544,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 34.4,
+          "end_sec": 35.47,
+          "max_confidence": 0.2849,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 37.33,
+          "end_sec": 38.67,
+          "max_confidence": 0.2971,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 40.27,
+          "end_sec": 41.07,
+          "max_confidence": 0.281,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 42.4,
+          "end_sec": 43.73,
+          "max_confidence": 0.2898,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 43.73,
+          "end_sec": 49.33,
+          "max_confidence": 0.3403,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 49.07,
+          "end_sec": 49.6,
+          "max_confidence": 0.2625,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 49.33,
+          "end_sec": 51.47,
+          "max_confidence": 0.3152,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 53.07,
+          "end_sec": 54.4,
+          "max_confidence": 0.2913,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 54.67,
+          "end_sec": 55.2,
+          "max_confidence": 0.2505,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 55.47,
+          "end_sec": 57.87,
+          "max_confidence": 0.303,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 59.47,
+          "end_sec": 60.27,
+          "max_confidence": 0.2605,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 60.27,
+          "end_sec": 60.8,
+          "max_confidence": 0.251,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 60.8,
+          "end_sec": 62.13,
+          "max_confidence": 0.2805,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 61.87,
+          "end_sec": 62.4,
+          "max_confidence": 0.2561,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 62.67,
+          "end_sec": 63.2,
+          "max_confidence": 0.2646,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 63.2,
+          "end_sec": 66.4,
+          "max_confidence": 0.3279,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 66.4,
+          "end_sec": 68.27,
+          "max_confidence": 0.2944,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 68.27,
+          "end_sec": 68.8,
+          "max_confidence": 0.2566,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 68.8,
+          "end_sec": 74.4,
+          "max_confidence": 0.3293,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 77.6,
+          "end_sec": 79.2,
+          "max_confidence": 0.2952,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 79.47,
+          "end_sec": 80.53,
+          "max_confidence": 0.3308,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 80.53,
+          "end_sec": 81.07,
+          "max_confidence": 0.2512,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 82.67,
+          "end_sec": 84.27,
+          "max_confidence": 0.2703,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 85.07,
+          "end_sec": 85.6,
+          "max_confidence": 0.2883,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 86.13,
+          "end_sec": 86.67,
+          "max_confidence": 0.2524,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 86.4,
+          "end_sec": 87.2,
+          "max_confidence": 0.2783,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 88.8,
+          "end_sec": 89.87,
+          "max_confidence": 0.3325,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 89.87,
+          "end_sec": 90.93,
+          "max_confidence": 0.3054,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 91.47,
+          "end_sec": 92.27,
+          "max_confidence": 0.2581,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 92.53,
+          "end_sec": 93.07,
+          "max_confidence": 0.2524,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 96.53,
+          "end_sec": 100.0,
+          "max_confidence": 0.3643,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 100.0,
+          "end_sec": 106.93,
+          "max_confidence": 0.3171,
+          "severity": "MEDIUM"
+        }
+      ]
+    },
+    "Normal": {
+      "file": "Normal_Videos021_x264.mp4",
+      "duration": 65.43,
+      "windows": 244,
+      "top_prediction": "Shoplifting",
+      "distribution": {
+        "Robbery": 75,
+        "Normal": 8,
+        "Shoplifting": 89,
+        "Fighting": 2,
+        "Shooting": 33,
+        "Burglary": 37
+      },
+      "merged_events_count": 44,
+      "merged_events": [
+        {
+          "class": "Robbery",
+          "start_sec": 0.0,
+          "end_sec": 0.53,
+          "max_confidence": 0.2747,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 1.07,
+          "end_sec": 1.87,
+          "max_confidence": 0.2639,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 2.13,
+          "end_sec": 3.47,
+          "max_confidence": 0.3113,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 3.2,
+          "end_sec": 4.27,
+          "max_confidence": 0.2766,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 5.07,
+          "end_sec": 5.6,
+          "max_confidence": 0.2532,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 5.6,
+          "end_sec": 6.67,
+          "max_confidence": 0.2747,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 6.93,
+          "end_sec": 7.47,
+          "max_confidence": 0.2583,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 8.0,
+          "end_sec": 8.53,
+          "max_confidence": 0.2595,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 8.8,
+          "end_sec": 9.33,
+          "max_confidence": 0.2639,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 9.33,
+          "end_sec": 11.47,
+          "max_confidence": 0.2908,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 11.73,
+          "end_sec": 12.53,
+          "max_confidence": 0.269,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 12.27,
+          "end_sec": 13.07,
+          "max_confidence": 0.2715,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 13.07,
+          "end_sec": 13.87,
+          "max_confidence": 0.2856,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 13.6,
+          "end_sec": 14.13,
+          "max_confidence": 0.2681,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 14.4,
+          "end_sec": 16.53,
+          "max_confidence": 0.3193,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 17.07,
+          "end_sec": 17.87,
+          "max_confidence": 0.3069,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 17.6,
+          "end_sec": 25.6,
+          "max_confidence": 0.3171,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 25.33,
+          "end_sec": 25.87,
+          "max_confidence": 0.3176,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 25.6,
+          "end_sec": 26.67,
+          "max_confidence": 0.3015,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 26.4,
+          "end_sec": 29.6,
+          "max_confidence": 0.364,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 29.33,
+          "end_sec": 29.87,
+          "max_confidence": 0.2751,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 29.6,
+          "end_sec": 30.67,
+          "max_confidence": 0.2698,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 30.67,
+          "end_sec": 31.2,
+          "max_confidence": 0.2529,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 31.2,
+          "end_sec": 33.87,
+          "max_confidence": 0.2942,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 34.4,
+          "end_sec": 34.93,
+          "max_confidence": 0.2632,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 34.67,
+          "end_sec": 35.2,
+          "max_confidence": 0.2656,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 34.93,
+          "end_sec": 35.73,
+          "max_confidence": 0.2832,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 35.47,
+          "end_sec": 38.93,
+          "max_confidence": 0.439,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 40.8,
+          "end_sec": 41.33,
+          "max_confidence": 0.2571,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 41.33,
+          "end_sec": 41.87,
+          "max_confidence": 0.28,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 43.73,
+          "end_sec": 45.07,
+          "max_confidence": 0.3213,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 45.33,
+          "end_sec": 45.87,
+          "max_confidence": 0.2549,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 45.87,
+          "end_sec": 47.2,
+          "max_confidence": 0.2947,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 48.27,
+          "end_sec": 49.6,
+          "max_confidence": 0.2913,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 49.6,
+          "end_sec": 51.2,
+          "max_confidence": 0.2798,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 51.47,
+          "end_sec": 52.27,
+          "max_confidence": 0.2769,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 53.07,
+          "end_sec": 54.4,
+          "max_confidence": 0.3076,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 54.13,
+          "end_sec": 55.2,
+          "max_confidence": 0.2747,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 55.73,
+          "end_sec": 56.8,
+          "max_confidence": 0.2949,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 57.33,
+          "end_sec": 57.87,
+          "max_confidence": 0.2673,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 57.87,
+          "end_sec": 58.4,
+          "max_confidence": 0.2654,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 58.4,
+          "end_sec": 58.93,
+          "max_confidence": 0.26,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 58.93,
+          "end_sec": 61.87,
+          "max_confidence": 0.3254,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 63.73,
+          "end_sec": 64.27,
+          "max_confidence": 0.2583,
+          "severity": "MEDIUM"
+        }
+      ]
+    },
+    "Robbery": {
+      "file": "Robbery017_x264.mp4",
+      "duration": 145.27,
+      "windows": 543,
+      "top_prediction": "Robbery",
+      "distribution": {
+        "Shooting": 19,
+        "Robbery": 474,
+        "Shoplifting": 38,
+        "Assault": 9,
+        "Burglary": 3
+      },
+      "merged_events_count": 88,
+      "merged_events": [
+        {
+          "class": "Robbery",
+          "start_sec": 0.53,
+          "end_sec": 1.07,
+          "max_confidence": 0.2837,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 1.07,
+          "end_sec": 1.87,
+          "max_confidence": 0.2646,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 3.2,
+          "end_sec": 3.73,
+          "max_confidence": 0.2561,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 3.73,
+          "end_sec": 4.53,
+          "max_confidence": 0.3047,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 4.27,
+          "end_sec": 4.8,
+          "max_confidence": 0.2566,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 5.87,
+          "end_sec": 7.2,
+          "max_confidence": 0.3091,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 7.2,
+          "end_sec": 7.73,
+          "max_confidence": 0.3169,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 7.73,
+          "end_sec": 8.27,
+          "max_confidence": 0.2705,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 8.0,
+          "end_sec": 8.53,
+          "max_confidence": 0.2502,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 11.47,
+          "end_sec": 12.8,
+          "max_confidence": 0.3098,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 13.6,
+          "end_sec": 14.93,
+          "max_confidence": 0.2742,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 14.93,
+          "end_sec": 15.47,
+          "max_confidence": 0.2515,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 17.33,
+          "end_sec": 18.4,
+          "max_confidence": 0.2666,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 18.13,
+          "end_sec": 18.67,
+          "max_confidence": 0.282,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 19.73,
+          "end_sec": 20.27,
+          "max_confidence": 0.2747,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 20.27,
+          "end_sec": 21.33,
+          "max_confidence": 0.2651,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 21.33,
+          "end_sec": 22.13,
+          "max_confidence": 0.2708,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 22.4,
+          "end_sec": 22.93,
+          "max_confidence": 0.2842,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 22.93,
+          "end_sec": 25.07,
+          "max_confidence": 0.2991,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 25.33,
+          "end_sec": 26.13,
+          "max_confidence": 0.2671,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 26.13,
+          "end_sec": 26.93,
+          "max_confidence": 0.2705,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 28.0,
+          "end_sec": 28.8,
+          "max_confidence": 0.2732,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 30.13,
+          "end_sec": 30.67,
+          "max_confidence": 0.2561,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 31.2,
+          "end_sec": 34.93,
+          "max_confidence": 0.3831,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 38.67,
+          "end_sec": 39.2,
+          "max_confidence": 0.2537,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 39.2,
+          "end_sec": 42.4,
+          "max_confidence": 0.3274,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 42.93,
+          "end_sec": 46.67,
+          "max_confidence": 0.3967,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 48.0,
+          "end_sec": 48.8,
+          "max_confidence": 0.2795,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 48.8,
+          "end_sec": 49.33,
+          "max_confidence": 0.2588,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 49.33,
+          "end_sec": 49.87,
+          "max_confidence": 0.2588,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 50.4,
+          "end_sec": 51.2,
+          "max_confidence": 0.2734,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 51.2,
+          "end_sec": 52.0,
+          "max_confidence": 0.2759,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 52.0,
+          "end_sec": 52.53,
+          "max_confidence": 0.2695,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 52.53,
+          "end_sec": 53.07,
+          "max_confidence": 0.2644,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 54.13,
+          "end_sec": 54.67,
+          "max_confidence": 0.2517,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 55.2,
+          "end_sec": 55.73,
+          "max_confidence": 0.2578,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 55.73,
+          "end_sec": 56.27,
+          "max_confidence": 0.2925,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 56.27,
+          "end_sec": 56.8,
+          "max_confidence": 0.2544,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 56.8,
+          "end_sec": 57.33,
+          "max_confidence": 0.2576,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 57.87,
+          "end_sec": 59.2,
+          "max_confidence": 0.2983,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 59.2,
+          "end_sec": 60.0,
+          "max_confidence": 0.2769,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 60.0,
+          "end_sec": 60.53,
+          "max_confidence": 0.2825,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 60.53,
+          "end_sec": 61.6,
+          "max_confidence": 0.3037,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 61.6,
+          "end_sec": 63.2,
+          "max_confidence": 0.3291,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 63.2,
+          "end_sec": 64.53,
+          "max_confidence": 0.2896,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 64.53,
+          "end_sec": 65.07,
+          "max_confidence": 0.259,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 64.8,
+          "end_sec": 65.33,
+          "max_confidence": 0.269,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 66.13,
+          "end_sec": 66.67,
+          "max_confidence": 0.2578,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 67.2,
+          "end_sec": 67.73,
+          "max_confidence": 0.2595,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 68.0,
+          "end_sec": 68.53,
+          "max_confidence": 0.2507,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 68.53,
+          "end_sec": 69.07,
+          "max_confidence": 0.252,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 70.13,
+          "end_sec": 70.93,
+          "max_confidence": 0.2727,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 70.93,
+          "end_sec": 71.47,
+          "max_confidence": 0.262,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 72.53,
+          "end_sec": 73.07,
+          "max_confidence": 0.2527,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 73.6,
+          "end_sec": 74.13,
+          "max_confidence": 0.2664,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 74.13,
+          "end_sec": 75.2,
+          "max_confidence": 0.2874,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 75.2,
+          "end_sec": 76.0,
+          "max_confidence": 0.2615,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 76.0,
+          "end_sec": 76.53,
+          "max_confidence": 0.2754,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 76.8,
+          "end_sec": 77.87,
+          "max_confidence": 0.2874,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 78.13,
+          "end_sec": 79.2,
+          "max_confidence": 0.2666,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 80.53,
+          "end_sec": 83.73,
+          "max_confidence": 0.3433,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 83.73,
+          "end_sec": 84.53,
+          "max_confidence": 0.2778,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 84.53,
+          "end_sec": 85.6,
+          "max_confidence": 0.2737,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Assault",
+          "start_sec": 86.13,
+          "end_sec": 86.67,
+          "max_confidence": 0.2686,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 86.93,
+          "end_sec": 87.47,
+          "max_confidence": 0.2961,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 87.47,
+          "end_sec": 88.53,
+          "max_confidence": 0.2939,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 89.6,
+          "end_sec": 90.13,
+          "max_confidence": 0.2732,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 91.73,
+          "end_sec": 92.27,
+          "max_confidence": 0.269,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 92.27,
+          "end_sec": 92.8,
+          "max_confidence": 0.27,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 93.87,
+          "end_sec": 94.67,
+          "max_confidence": 0.2673,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 95.73,
+          "end_sec": 96.27,
+          "max_confidence": 0.2595,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 96.27,
+          "end_sec": 97.07,
+          "max_confidence": 0.2644,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 97.07,
+          "end_sec": 98.4,
+          "max_confidence": 0.2974,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 98.93,
+          "end_sec": 99.47,
+          "max_confidence": 0.251,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 99.47,
+          "end_sec": 100.27,
+          "max_confidence": 0.2771,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 100.27,
+          "end_sec": 100.8,
+          "max_confidence": 0.2554,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 101.87,
+          "end_sec": 102.4,
+          "max_confidence": 0.2559,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 108.27,
+          "end_sec": 108.8,
+          "max_confidence": 0.2515,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 111.2,
+          "end_sec": 113.33,
+          "max_confidence": 0.3452,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 113.33,
+          "end_sec": 115.2,
+          "max_confidence": 0.3096,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 115.47,
+          "end_sec": 117.87,
+          "max_confidence": 0.3347,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 117.87,
+          "end_sec": 122.13,
+          "max_confidence": 0.3672,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 123.2,
+          "end_sec": 123.73,
+          "max_confidence": 0.252,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 124.27,
+          "end_sec": 135.47,
+          "max_confidence": 0.3721,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 136.0,
+          "end_sec": 138.67,
+          "max_confidence": 0.3164,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 138.67,
+          "end_sec": 139.2,
+          "max_confidence": 0.2966,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 140.27,
+          "end_sec": 141.33,
+          "max_confidence": 0.2842,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 141.6,
+          "end_sec": 144.27,
+          "max_confidence": 0.3452,
+          "severity": "HIGH"
+        }
+      ]
+    },
+    "Shooting": {
+      "file": "Shooting018_x264.mp4",
+      "duration": 59.97,
+      "windows": 223,
+      "top_prediction": "Normal",
+      "distribution": {
+        "Normal": 196,
+        "Robbery": 21,
+        "Shoplifting": 1,
+        "Shooting": 5
+      },
+      "merged_events_count": 11,
+      "merged_events": [
+        {
+          "class": "Robbery",
+          "start_sec": 10.13,
+          "end_sec": 10.67,
+          "max_confidence": 0.2695,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 11.47,
+          "end_sec": 12.8,
+          "max_confidence": 0.3459,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 12.8,
+          "end_sec": 13.33,
+          "max_confidence": 0.3015,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 13.33,
+          "end_sec": 14.13,
+          "max_confidence": 0.2559,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 14.13,
+          "end_sec": 14.93,
+          "max_confidence": 0.2637,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 29.07,
+          "end_sec": 29.6,
+          "max_confidence": 0.3069,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 29.6,
+          "end_sec": 30.13,
+          "max_confidence": 0.3291,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 36.0,
+          "end_sec": 36.53,
+          "max_confidence": 0.2808,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 36.8,
+          "end_sec": 38.13,
+          "max_confidence": 0.2866,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 48.0,
+          "end_sec": 49.07,
+          "max_confidence": 0.3105,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 50.4,
+          "end_sec": 50.93,
+          "max_confidence": 0.2749,
+          "severity": "HIGH"
+        }
+      ]
+    },
+    "Shoplifting": {
+      "file": "Shoplifting016_x264.mp4",
+      "duration": 49.43,
+      "windows": 184,
+      "top_prediction": "Robbery",
+      "distribution": {
+        "Robbery": 147,
+        "Burglary": 23,
+        "Shoplifting": 4,
+        "Shooting": 10
+      },
+      "merged_events_count": 25,
+      "merged_events": [
+        {
+          "class": "Robbery",
+          "start_sec": 3.73,
+          "end_sec": 5.33,
+          "max_confidence": 0.3245,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 5.33,
+          "end_sec": 5.87,
+          "max_confidence": 0.2678,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 5.87,
+          "end_sec": 6.93,
+          "max_confidence": 0.2705,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 7.47,
+          "end_sec": 8.0,
+          "max_confidence": 0.2544,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 8.0,
+          "end_sec": 8.53,
+          "max_confidence": 0.2537,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 10.67,
+          "end_sec": 11.2,
+          "max_confidence": 0.2795,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 12.0,
+          "end_sec": 12.53,
+          "max_confidence": 0.2561,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 12.8,
+          "end_sec": 15.73,
+          "max_confidence": 0.3828,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 15.47,
+          "end_sec": 16.0,
+          "max_confidence": 0.3052,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 16.0,
+          "end_sec": 17.33,
+          "max_confidence": 0.3557,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 17.33,
+          "end_sec": 18.93,
+          "max_confidence": 0.3145,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shoplifting",
+          "start_sec": 18.93,
+          "end_sec": 19.73,
+          "max_confidence": 0.3032,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 19.47,
+          "end_sec": 21.33,
+          "max_confidence": 0.3433,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 21.33,
+          "end_sec": 21.87,
+          "max_confidence": 0.2947,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 21.87,
+          "end_sec": 23.2,
+          "max_confidence": 0.3203,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 23.47,
+          "end_sec": 24.27,
+          "max_confidence": 0.3032,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Burglary",
+          "start_sec": 24.53,
+          "end_sec": 26.67,
+          "max_confidence": 0.3123,
+          "severity": "MEDIUM"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 27.2,
+          "end_sec": 32.27,
+          "max_confidence": 0.3792,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 32.27,
+          "end_sec": 32.8,
+          "max_confidence": 0.2715,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 33.07,
+          "end_sec": 33.6,
+          "max_confidence": 0.2522,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Shooting",
+          "start_sec": 33.87,
+          "end_sec": 34.4,
+          "max_confidence": 0.2744,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 34.4,
+          "end_sec": 34.93,
+          "max_confidence": 0.2773,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 35.47,
+          "end_sec": 37.07,
+          "max_confidence": 0.3145,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 37.07,
+          "end_sec": 38.13,
+          "max_confidence": 0.2656,
+          "severity": "HIGH"
+        },
+        {
+          "class": "Robbery",
+          "start_sec": 38.13,
+          "end_sec": 38.93,
+          "max_confidence": 0.2598,
+          "severity": "HIGH"
+        }
+      ]
+    }
+  },
+  "websocket_live": {
+    "frames_streamed": 40,
+    "alerts_triggered": 0,
+    "sample_response": {
+      "alert_triggered": false,
+      "label": "Burglary",
+      "confidence": 0.2372,
+      "severity": "MEDIUM",
+      "all_probs": {}
+    }
+  },
+  "alerts_diagnostic": {
+    "email": {
+      "success": false,
+      "target": "",
+      "delivered": [],
+      "error": "SMTP credentials (SMTP_USER/SMTP_PASSWORD) are not configured."
+    },
+    "sms": {
+      "success": false,
+      "target": "",
+      "delivered": [],
+      "error": "Twilio credentials (ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER) not configured."
+    }
+  },
+  "database_stats": {
+    "total_alerts": 398,
+    "new_alerts": 397,
+    "confirmed_alerts": 1,
+    "dismissed_alerts": 0,
+    "severity_breakdown": {
+      "HIGH": 235,
+      "MEDIUM": 163
+    },
+    "class_breakdown": {
+      "Assault": 6,
+      "Burglary": 124,
+      "Fighting": 2,
+      "Robbery": 157,
+      "Shooting": 70,
+      "Shoplifting": 39
+    },
+    "active_recipients": 3,
+    "system": {
+      "device": "cuda",
+      "model": "PyTorchVideo X3D-M",
+      "classes_monitored": 7,
+      "status": "operational"
+    }
+  }
+}
